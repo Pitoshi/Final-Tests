@@ -37,10 +37,6 @@ public class EmployeeEntity {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public boolean isActive() {
         return isActive;
     }
@@ -63,10 +59,6 @@ public class EmployeeEntity {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
     }
 
     public void setMiddleName(String middleName) {

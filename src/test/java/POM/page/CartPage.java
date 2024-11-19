@@ -20,9 +20,9 @@ public class CartPage {
         this.header = new HeaderElement();
     }
 
-    private ElementsCollection cartItemsLocator = $$(".inventory_item_name");
-    private SelenideElement checkoutButtonLocator = $("#checkout");
-    private SelenideElement cartItemsListLocator = $(".cart_list");
+    private final ElementsCollection cartItemsLocator = $$(".inventory_item_name");
+    private final SelenideElement checkoutButtonLocator = $("#checkout");
+    private final SelenideElement cartItemsListLocator = $(".cart_list");
 
     public int countItemsInCart() {
         cartItemsLocator.shouldHave(size(3));

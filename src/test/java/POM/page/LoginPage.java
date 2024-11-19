@@ -9,10 +9,14 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class LoginPage {
 
-    private SelenideElement userNameInputLocator = $("#user-name");
-    private SelenideElement passwordInputLocator = $("#password");
-    private SelenideElement loginButtonLocator = $("#login-button");
-    private SelenideElement errorTextLocator = $("[data-test='error']");
+    private final SelenideElement userNameInputLocator = $("#user-name");
+    private SelenideElement passwordInputLocator;
+    private final SelenideElement loginButtonLocator = $("#login-button");
+    private final SelenideElement errorTextLocator = $("[data-test='error']");
+
+    public LoginPage() {
+        passwordInputLocator = $("#password");
+    }
 
     @Step("Логин под пользователем {user}")
     public void login(String user, String password) {

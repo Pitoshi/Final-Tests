@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CompletePage {
 
-    private SelenideElement finishButtonLocator = $(".complete-header");
+    private final SelenideElement finishButtonLocator = $(".complete-header");
 
     @Step("Проверям, что оформление заказа успешно завершено")
     public void checkComplete() {

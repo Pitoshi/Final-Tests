@@ -16,12 +16,12 @@ public class CheckoutPage {
         this.header = new HeaderElement();
     }
 
-    private SelenideElement firstNameLocator = $("#first-name");
-    private SelenideElement lastNameLocator = $("#last-name");
-    private SelenideElement poctalCodeLocator = $("#postal-code");
-    private SelenideElement continueButtonLocator = $("#continue");
-    private SelenideElement totalPriceLocator = $(".summary_total_label");
-    private SelenideElement finishButtonLocator = $("#finish");
+    private final SelenideElement firstNameLocator = $("#first-name");
+    private final SelenideElement lastNameLocator = $("#last-name");
+    private final SelenideElement poctalCodeLocator = $("#postal-code");
+    private final SelenideElement continueButtonLocator = $("#continue");
+    private final SelenideElement totalPriceLocator = $(".summary_total_label");
+    private final SelenideElement finishButtonLocator = $("#finish");
 
 
 

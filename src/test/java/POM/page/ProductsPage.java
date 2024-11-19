@@ -18,10 +18,10 @@ public class ProductsPage {
 
 
 
-    private SelenideElement productsLocator = $(".title");
-    private SelenideElement SauceLabsBackpackCartButtonLocator = $("#add-to-cart-sauce-labs-backpack");
-    private SelenideElement SauceLabsBoltTshirtCartButtonLocator = $("#add-to-cart-sauce-labs-bolt-t-shirt");
-    private SelenideElement SauceLabsOnesieCartButtonLocator = $("#add-to-cart-sauce-labs-onesie");
+    private final SelenideElement productsLocator = $(".title");
+    private final SelenideElement SauceLabsBackpackCartButtonLocator = $("#add-to-cart-sauce-labs-backpack");
+    private final SelenideElement SauceLabsBoltTshirtCartButtonLocator = $("#add-to-cart-sauce-labs-bolt-t-shirt");
+    private final SelenideElement SauceLabsOnesieCartButtonLocator = $("#add-to-cart-sauce-labs-onesie");
 
     public String getProductsText() {
         return productsLocator.text();
