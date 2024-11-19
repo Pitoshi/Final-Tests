@@ -13,7 +13,7 @@ public class EmployeeEntity {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private final int id;
     @Column(name = "is_active")
     private boolean isActive;
     @Column(name = "first_name")
@@ -67,10 +67,6 @@ public class EmployeeEntity {
 
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
-    }
-
-    public String getPhone() {
-        return phone;
     }
 
     public void setPhone(String phone) {
