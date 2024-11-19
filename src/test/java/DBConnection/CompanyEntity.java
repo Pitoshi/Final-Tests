@@ -19,6 +19,10 @@ public class CompanyEntity {
     @Column(name = "is_active")
     private boolean isActive;
 
+    public CompanyEntity(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

@@ -8,7 +8,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class HeaderElement {
 
 
-    private SelenideElement cartLocator = $(".shopping_cart_link");
+    private final SelenideElement cartLocator = $(".shopping_cart_link");
 
     @Step("Переходим в корзину")
     public void goToCart() {

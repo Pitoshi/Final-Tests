@@ -70,7 +70,7 @@ public class VariablesForEmployeeTests {
     }
 
     public static Function<CreateEmployeeRequest, CreateEmployeeRequest> russian =
-            new Function<CreateEmployeeRequest, CreateEmployeeRequest>() {
+            new Function<>() {
                 @Override
                 public CreateEmployeeRequest apply(CreateEmployeeRequest e) {
                     e.setFirstName(RUSSIAN_NAME);
@@ -83,7 +83,7 @@ public class VariablesForEmployeeTests {
             };
 
     public static Function<CreateEmployeeRequest, CreateEmployeeRequest> latin =
-            new Function<CreateEmployeeRequest, CreateEmployeeRequest>() {
+            new Function<>() {
                 @Override
                 public CreateEmployeeRequest apply(CreateEmployeeRequest e) {
                     e.setFirstName(LATIN_NAME);
@@ -97,7 +97,7 @@ public class VariablesForEmployeeTests {
 
     public static Function<CreateEmployeeRequest, CreateEmployeeRequest> fullFieldsRussian =
 
-            new Function<CreateEmployeeRequest, CreateEmployeeRequest>() {
+            new Function<>() {
                 @Override
                 public CreateEmployeeRequest apply(CreateEmployeeRequest e) {
                     e.setFirstName(RUSSIAN_NAME);
@@ -114,34 +114,28 @@ public class VariablesForEmployeeTests {
             };
 
     public static Function<CreateEmployeeRequest, CreateEmployeeRequest> employeeNoCompany =
-            new Function<CreateEmployeeRequest, CreateEmployeeRequest>() {
-                @Override
-                public CreateEmployeeRequest apply(CreateEmployeeRequest e) {
-                    e.setFirstName(RUSSIAN_NAME);
-                    e.setLastName(RUSSIAN_LASTNAME);
-                    e.setCompanyId(NEGATIVE_ID);
-                    e.setPhone(EMPLOYEE_PHONE);
-                    e.setActive(true);
-                    return e;
-                }
+            e -> {
+                e.setFirstName(RUSSIAN_NAME);
+                e.setLastName(RUSSIAN_LASTNAME);
+                e.setCompanyId(NEGATIVE_ID);
+                e.setPhone(EMPLOYEE_PHONE);
+                e.setActive(true);
+                return e;
             };
 
     public static Function<CreateEmployeeRequest, CreateEmployeeRequest> employeeChange =
-            new Function<CreateEmployeeRequest, CreateEmployeeRequest>() {
-                @Override
-                public CreateEmployeeRequest apply(CreateEmployeeRequest e) {
-                    e.setLastName(CHANGED_LASTNAME);
-                    e.setEmail(EMPLOYEE_CHANGED_EMAIL);
-                    e.setPhone(EMPLOYEE_CHANGED_PHONE);
-                    e.setActive(true);
-                    e.setUrl(EMPLOYEE_CHANGED_URL);
-                    return e;
-                }
+            e -> {
+                e.setLastName(CHANGED_LASTNAME);
+                e.setEmail(EMPLOYEE_CHANGED_EMAIL);
+                e.setPhone(EMPLOYEE_CHANGED_PHONE);
+                e.setActive(true);
+                e.setUrl(EMPLOYEE_CHANGED_URL);
+                return e;
             };
 
 
     public static Function<CreateEmployeeRequest, CreateEmployeeRequest> specialCharacters =
-            new Function<CreateEmployeeRequest, CreateEmployeeRequest>() {
+            new Function<>() {
                 @Override
                 public CreateEmployeeRequest apply(CreateEmployeeRequest e) {
                     e.setFirstName(SPECIAL_CHARACTERS);
@@ -158,7 +152,7 @@ public class VariablesForEmployeeTests {
             };
 
     public static Function<CreateEmployeeRequest, CreateEmployeeRequest> incorrectEmail =
-            new Function<CreateEmployeeRequest, CreateEmployeeRequest>() {
+            new Function<>() {
                 @Override
                 public CreateEmployeeRequest apply(CreateEmployeeRequest e) {
                     e.setFirstName(RUSSIAN_NAME);
@@ -173,7 +167,7 @@ public class VariablesForEmployeeTests {
 
     public static Function<CreateEmployeeRequest, CreateEmployeeRequest> fullFieldsMax =
 
-            new Function<CreateEmployeeRequest, CreateEmployeeRequest>() {
+            new Function<>() {
                 @Override
                 public CreateEmployeeRequest apply(CreateEmployeeRequest e) {
                     e.setFirstName(CHARACTERS_20);
@@ -187,7 +181,7 @@ public class VariablesForEmployeeTests {
 
     public static Function<CreateEmployeeRequest, CreateEmployeeRequest> fieldsMoreThanMax =
 
-            new Function<CreateEmployeeRequest, CreateEmployeeRequest>() {
+            new Function<>() {
                 @Override
                 public CreateEmployeeRequest apply(CreateEmployeeRequest e) {
                     e.setFirstName(MORE_THAN_20_CHARACTERS);

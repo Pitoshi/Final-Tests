@@ -10,7 +10,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class LoginPage {
 
     private final SelenideElement userNameInputLocator = $("#user-name");
-    private SelenideElement passwordInputLocator;
+    private final SelenideElement passwordInputLocator;
     private final SelenideElement loginButtonLocator = $("#login-button");
     private final SelenideElement errorTextLocator = $("[data-test='error']");
 

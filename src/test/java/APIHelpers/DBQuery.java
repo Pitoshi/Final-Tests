@@ -38,7 +38,7 @@ public class DBQuery {
     public static int createNewCompanyDB() throws IOException {
         connectionDB();
 
-        CompanyEntity newCompany = new CompanyEntity();
+        CompanyEntity newCompany = new CompanyEntity(id);
         newCompany.setName(COMPANY_NAME);
         newCompany.setActive(true);
 
@@ -65,17 +65,7 @@ public class DBQuery {
         return employee;
     }
 
-    public static Function<EmployeeEntity, EmployeeEntity> russianDB = new Function<EmployeeEntity, EmployeeEntity>() {
-        @Override
-        public EmployeeEntity apply(EmployeeEntity e) {
-            e.setFirstName(RUSSIAN_NAME);
-            e.setLastName(RUSSIAN_LASTNAME);
-            e.setCompanyId(NEW_COMPANY);
-            e.setPhone(EMPLOYEE_PHONE);
-            e.setActive(true);
-            return e;
-        }
-    };
+    public static Function<EmployeeEntity, EmployeeEntity> russianDB = DBQuery::apply;
 
     public static Function<EmployeeEntity, EmployeeEntity> latinDB = new Function<EmployeeEntity, EmployeeEntity>() {
         @Override
@@ -152,4 +142,12 @@ public class DBQuery {
 
     }
 
+    private static EmployeeEntity apply(EmployeeEntity e) {
+        e.setFirstName(RUSSIAN_NAME);
+        e.setLastName(RUSSIAN_LASTNAME);
+        e.setCompanyId(NEW_COMPANY);
+        e.setPhone(EMPLOYEE_PHONE);
+        e.setActive(true);
+        return e;
+    }
 }
