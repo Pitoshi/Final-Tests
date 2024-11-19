@@ -7,65 +7,69 @@ import org.junit.jupiter.api.*;
 import static UITestData.GetData.getData;
 import static com.codeborne.selenide.logevents.SelenideLogger.step;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static properties.GetProperties.getProperty;
 
 public class SwagLabsTests {
+    private LoginPage loginPage;
+    private ProductsPage productsPage;
+    private CartPage cartPage;
+    private CheckoutPage checkoutPage;
+    private CompletePage completePage;
 
-    LoginPage loginPage;
-    ProductsPage productsPage;
-    CartPage cartPage;
-    CheckoutPage checkoutPage;
-    CompletePage completePage;
-
-    String standardUser = getProperty("standardUser");
-    String blockedUser = getProperty("blockedUser");
-    String performanceGlitchUser = getProperty("performanceGlitchUser");
-    String password = getProperty("passwordUI");
-
+    private final String standardUser = getProperty("standardUser");
+    private final String invalidPassword = getProperty ("invalidPassword");
+    private final String blockedUser = getProperty("blockedUser");
+    private final String performanceGlitchUser = getProperty("performanceGlitchUser");
+    private final String password = getProperty("passwordUI");
 
     @BeforeAll
-    public static void setUpGlobal() {
+    static void configure() {
         Configuration.baseUrl = getProperty("urlUI");
         Configuration.headless = true;
-
     }
 
     @BeforeEach
-    public void setUp() {
+    void initPages() {
         loginPage = new LoginPage();
         productsPage = new ProductsPage();
         cartPage = new CartPage();
         checkoutPage = new CheckoutPage();
         completePage = new CompletePage();
-
     }
 
     @Test
     @DisplayName("Успешная авторизация")
     @Tag("positive")
-    public void successfulLogin() {
-        loginPage.login(standardUser,password);
+    void loginSuccessfully() {
+        loginPage.login(standardUser, password);
         productsPage.checkOfSuccessfulLogin();
     }
 
     @Test
     @DisplayName("Авторизация заблокированного пользователя")
     @Tag("negative")
-    public void unsuccessfulLogin() {
+    void loginBlocked() {
         loginPage.login(blockedUser, password);
-        step("Проверяем что вышло сообщение о том, что пользователь заблокирован", () -> assertEquals("Epic sadface: Sorry, this user has been locked out.", loginPage.getErrorText()));
+        step("Проверяем что вышло сообщение о том, что пользователь заблокирован", () ->
+                assertEquals("Epic sadface: Sorry, this user has been locked out.", loginPage.getErrorText())
+        );
     }
 
     @Test
     @DisplayName("e2e-сценарий под пользователем standard_user")
     @Tag("positive")
-    public void e2eStandardUser() {
+    void standardUserE2E() {
         loginPage.login(standardUser, password);
         productsPage.addToCart();
         productsPage.header.goToCart();
         cartPage.checkItemsInCartNumberShouldBe(3);
         cartPage.checkout();
-        checkoutPage.fillOutCheckoutForm(getData("firstName"), getData("lastName"), getData("zip"));
+        checkoutPage.fillOutCheckoutForm(
+                getData("firstName"),
+                getData("lastName"),
+                getData("zip")
+        );
         checkoutPage.checkOfTotalPrice();
         checkoutPage.finish();
         completePage.checkComplete();
@@ -74,17 +78,88 @@ public class SwagLabsTests {
     @Test
     @DisplayName("e2e-сценарий под пользователем performance_glitch_user")
     @Tag("positive")
-    public void e2ePerformanceGlitchUser() {
+    void performanceGlitchUserE2E() {
         loginPage.login(performanceGlitchUser, password);
         productsPage.checkOfSuccessfulLogin();
         productsPage.addToCart();
         productsPage.header.goToCart();
         cartPage.checkItemsInCartNumberShouldBe(3);
         cartPage.checkout();
-        checkoutPage.fillOutCheckoutForm(getData("firstName"), getData("lastName"), getData("zip"));
+        checkoutPage.fillOutCheckoutForm(
+                getData("firstName"),
+                getData("lastName"),
+                getData("zip")
+        );
         checkoutPage.checkOfTotalPrice();
         checkoutPage.finish();
         completePage.checkComplete();
     }
 
+    @Test
+    @DisplayName("Попытка входа с неверным паролем")
+    @Tag("negative")
+    void loginWithInvalidPassword() {
+        loginPage.login(standardUser, invalidPassword);
+        step("Проверяем сообщение об ошибке при неверном пароле", () ->
+                assertEquals("Epic sadface: Username and password do not match any user in this service",
+                        loginPage.getErrorText())
+        );
+    }
+
+    @Test
+    @DisplayName("Проверка добавления одного товара в корзину")
+    @Tag("positive")
+    void addSingleItemToCart() {
+        loginPage.login(standardUser, password);
+        productsPage.addSingleItemToCart();
+        productsPage.header.goToCart();
+        cartPage.checkItemsInCartNumberShouldBe(1);
+    }
+
+    @Test
+    @DisplayName("Проверка удаления товара из корзины")
+    @Tag("positive")
+    void removeItemFromCart() {
+        loginPage.login(standardUser, password);
+        productsPage.addSingleItemToCart();
+        productsPage.header.goToCart();
+        cartPage.removeItem();
+        cartPage.checkItemsInCartNumberShouldBe(0);
+    }
+
+    @Test
+    @DisplayName("Проверка оформления заказа без заполнения обязательных полей")
+    @Tag("negative")
+    void checkoutWithEmptyFields() {
+        loginPage.login(standardUser, password);
+        productsPage.addToCart();
+        productsPage.header.goToCart();
+        cartPage.checkout();
+        checkoutPage.fillOutCheckoutForm("", "", "");
+        step("Проверяем сообщение об ошибке при пустых полях", () ->
+                assertEquals("Error: First Name is required", checkoutPage.getErrorMessage())
+        );
+    }
+
+    @Test
+    @DisplayName("Проверка сортировки товаров по цене")
+    @Tag("positive")
+    void sortProductsByPrice() {
+        loginPage.login(standardUser, password);
+        productsPage.sortByPrice();
+        step("Проверяем корректность сортировки по цене", () ->
+                assertTrue(productsPage.isPriceSortedCorrectly())
+        );
+    }
+
+    @Test
+    @DisplayName("Проверка выхода из системы")
+    @Tag("positive")
+    void logoutTest() {
+        loginPage.login(standardUser, password);
+        productsPage.header.logout();
+        step("Проверяем, что произошел выход из системы", () ->
+                assertTrue(loginPage.isLoginPageDisplayed())
+        );
+    }
 }
