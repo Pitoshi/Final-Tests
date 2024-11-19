@@ -18,4 +18,13 @@ public class CreateEmployeeRequest {
     private String phone;
     private String birthdate;
     private boolean isActive;
+
+    public void setIsActive(boolean b) {
+    }
+
+    public void setActive(boolean b) {
+    }
+
+    public void setActive(boolean b) {
+    }
 }

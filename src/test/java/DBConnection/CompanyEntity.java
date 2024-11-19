@@ -14,6 +14,7 @@ public class CompanyEntity {
     private final int id;
     @Column
     private String name;
+    @lombok.Getter
     @Column
     private String description;
     @Column(name = "is_active")
@@ -33,10 +34,6 @@ public class CompanyEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public boolean isActive() {

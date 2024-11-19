@@ -7,6 +7,7 @@ import DBConnection.EmployeeEntity;
 import io.qameta.allure.Issue;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.*;
 
 import java.io.IOException;
@@ -106,5 +107,134 @@ public class BusinessTests {
                 () -> assertEquals(expectedLastName, employee.getLastName(), "Неверная фамилия"),
                 () -> assertTrue(employee.isActive(), "Сотрудник не активен")
         );
+    }
+
+    @Test
+    @DisplayName("Создание сотрудника, данные на латинице")
+    @Tag("Позитивный")
+    void createEmployeeLatin() {
+        CreateEmployeeRequest request = new CreateEmployeeRequest();
+        request = createEmployeeRequest(request, latin);
+
+        int newEmployeeId = given()
+                .basePath("employee")
+                .body(request)
+                .header(TOKEN_TYPE, info.userToken())
+                .contentType(ContentType.JSON)
+                .when()
+                .post()
+                .then()
+                .statusCode(201)
+                .extract()
+                .as(CreateEmployeeResponse.class)
+                .id();
+
+        EmployeeEntity employeeFromDB = getEmployeeByIdDB(newEmployeeId);
+        verifyEmployee(employeeFromDB, LATIN_NAME, LATIN_LASTNAME);
+    }
+
+    @Test
+    @DisplayName("Создание неактивного сотрудника")
+    @Tag("Позитивный")
+    void createInactiveEmployee() {
+        CreateEmployeeRequest request = new CreateEmployeeRequest();
+        request = createEmployeeRequest(request, russian);
+        request.setIsActive(false);
+
+        int newEmployeeId = given()
+                .basePath("employee")
+                .body(request)
+                .header(TOKEN_TYPE, info.userToken())
+                .contentType(ContentType.JSON)
+                .when()
+                .post()
+                .then()
+                .statusCode(201)
+                .extract()
+                .as(CreateEmployeeResponse.class)
+                .id();
+
+        EmployeeEntity employeeFromDB = getEmployeeByIdDB(newEmployeeId);
+        assertFalse(employeeFromDB.getIsActive());
+    }
+
+    @Test
+    @DisplayName("Создание сотрудника без необязательных полей")
+    @Tag("Позитивный")
+    void createEmployeeWithoutOptionalFields() {
+        CreateEmployeeRequest request = new CreateEmployeeRequest();
+        request.setLastName(RUSSIAN_LASTNAME);
+        request.setFirstName(RUSSIAN_NAME);
+        request.setPhone(EMPLOYEE_PHONE);
+        request.setIsActive(true);
+
+        int newEmployeeId = given()
+                .basePath("employee")
+                .body(request)
+                .header(TOKEN_TYPE, info.userToken())
+                .contentType(ContentType.JSON)
+                .when()
+                .post()
+                .then()
+                .statusCode(201)
+                .extract()
+                .as(CreateEmployeeResponse.class)
+                .id();
+
+        EmployeeEntity employeeFromDB = getEmployeeByIdDB(newEmployeeId);
+        assertNull(employeeFromDB.getMiddleName());
+        assertNull(employeeFromDB.getBirthdate());
+        assertNull(employeeFromDB.getAvatarUrl());
+    }
+
+    @Test
+    @DisplayName("Получение информации о конкретном сотруднике")
+    @Tag("Позитивный")
+    void getEmployeeById() throws IOException {
+        CreateEmployeeRequest request = new CreateEmployeeRequest();
+        request = createEmployeeRequest(request, russian);
+
+        int employeeId = given()
+                .basePath("employee")
+                .body(request)
+                .header(TOKEN_TYPE, info.userToken())
+                .contentType(ContentType.JSON)
+                .when()
+                .post()
+                .then()
+                .statusCode(201)
+                .extract()
+                .as(CreateEmployeeResponse.class)
+                .id();
+
+        given()
+                .basePath("employee/" + employeeId)
+                .contentType(ContentType.JSON)
+                .when()
+                .get()
+                .then()
+                .statusCode(200)
+                .body("lastName", Matchers.equalTo(RUSSIAN_LASTNAME))
+                .body("firstName", Matchers.equalTo(RUSSIAN_NAME))
+                .body("phone", Matchers.equalTo(EMPLOYEE_PHONE));
+    }
+
+    @Test
+    @DisplayName("Проверка валидации телефонного номера")
+    @Tag("Негативный")
+    void createEmployeeWithInvalidPhone() {
+        CreateEmployeeRequest request = new CreateEmployeeRequest();
+        request = createEmployeeRequest(request, russian);
+        request.setPhone("invalid_phone");
+
+        given()
+                .basePath("employee")
+                .body(request)
+                .header(TOKEN_TYPE, info.userToken())
+                .contentType(ContentType.JSON)
+                .when()
+                .post()
+                .then()
+                .statusCode(400);
     }
 }

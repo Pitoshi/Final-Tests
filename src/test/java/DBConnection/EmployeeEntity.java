@@ -101,4 +101,20 @@ public class EmployeeEntity {
     public int hashCode() {
         return Objects.hash(id, isActive, firstName, lastName, middleName, phone, email, birthdate, avatar_url, companyId);
     }
+
+    public boolean getIsActive() {
+        return false;
+    }
+
+    public Object getMiddleName() {
+        return null;
+    }
+
+    public Object getBirthdate() {
+        return null;
+    }
+
+    public Object getAvatarUrl() {
+        return null;
+    }
 }
