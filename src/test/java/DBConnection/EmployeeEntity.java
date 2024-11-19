@@ -33,6 +33,10 @@ public class EmployeeEntity {
     @Column(name = "company_id")
     private int companyId;
 
+    public EmployeeEntity(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }
@@ -79,10 +83,6 @@ public class EmployeeEntity {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Date getBirthdate() {
-        return birthdate;
     }
 
     public void setBirthdate(Date birthdate) {

@@ -182,7 +182,7 @@ public class SwagLabsTests {
     @Tag("positive")
     void productDetailsTest() {
         loginPage.login(standardUser, password);
-        productsPage.openProductDetails(0);
+        productsPage.openProductDetails();
         step("Проверяем наличие описания товара", () ->
                 assertTrue(productsPage.isProductDescriptionDisplayed())
         );

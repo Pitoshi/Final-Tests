@@ -23,6 +23,7 @@ import static properties.GetProperties.getProperties;
 public class DBQuery {
 
     private static EntityManager entityManager;
+    private static int id;
 
     @Step("Подключение к БД")
     public static void connectionDB() {

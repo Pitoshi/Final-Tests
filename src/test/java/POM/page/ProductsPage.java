@@ -60,7 +60,7 @@ public class ProductsPage {
         return 0;
     }
 
-    public void openProductDetails(int index) {
+    public void openProductDetails() {
         // Открытие деталей товара
     }
 

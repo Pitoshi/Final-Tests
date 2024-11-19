@@ -11,7 +11,7 @@ public class CompanyEntity {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private final int id;
     @Column
     private String name;
     @Column
