@@ -23,6 +23,7 @@ public class SwagLabsTests {
     private final String performanceGlitchUser = getProperty("performanceGlitchUser");
     private final String password = getProperty("passwordUI");
 
+
     @BeforeAll
     static void configure() {
         Configuration.baseUrl = getProperty("urlUI");
@@ -59,7 +60,7 @@ public class SwagLabsTests {
     @Test
     @DisplayName("e2e-сценарий под пользователем standard_user")
     @Tag("positive")
-    void standardUserE2E() {
+     void standardUserE2E() {
         loginPage.login(standardUser, password);
         productsPage.addToCart();
         productsPage.header.goToCart();
@@ -160,6 +161,41 @@ public class SwagLabsTests {
         productsPage.header.logout();
         step("Проверяем, что произошел выход из системы", () ->
                 assertTrue(loginPage.isLoginPageDisplayed())
+        );
+    }
+
+    @Test
+    @DisplayName("Проверка корзины после выхода из системы")
+    @Tag("positive")
+    void cartClearAfterLogout() {
+        loginPage.login(standardUser, password);
+        productsPage.addToCart();
+        productsPage.header.logout();
+        loginPage.login(standardUser, password);
+        step("Проверяем, что корзина пуста после повторного входа", () ->
+                assertEquals(0, productsPage.getCartItemsCount())
+        );
+    }
+
+    @Test
+    @DisplayName("Проверка деталей товара")
+    @Tag("positive")
+    void productDetailsTest() {
+        loginPage.login(standardUser, password);
+        productsPage.openProductDetails(0);
+        step("Проверяем наличие описания товара", () ->
+                assertTrue(productsPage.isProductDescriptionDisplayed())
+        );
+    }
+
+    @Test
+    @DisplayName("Проверка максимального количества товаров в корзине")
+    @Tag("positive")
+    void maxItemsInCartTest() {
+        loginPage.login(standardUser, password);
+        productsPage.addAllItemsToCart();
+        step("Проверяем максимальное количество товаров в корзине", () ->
+                assertEquals(6, productsPage.getCartItemsCount())
         );
     }
 }

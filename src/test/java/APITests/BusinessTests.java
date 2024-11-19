@@ -11,12 +11,15 @@ import org.junit.jupiter.api.*;
 
 import java.io.IOException;
 
-import static APIHelpers.DBQuery.*;
-import static APIHelpers.RestAssuredRequests.*;
+import static APIHelpers.DBQuery.createNewCompanyDB;
+import static APIHelpers.DBQuery.getEmployeeByIdDB;
+import static APIHelpers.RestAssuredRequests.auth;
+import static APIHelpers.RestAssuredRequests.createNewCompanyWithEmployees;
 import static APIVariables.VariablesForEmployeeTests.*;
 import static APIVariables.VariablesOfResponses.TOKEN_TYPE;
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasItems;
 import static org.junit.jupiter.api.Assertions.*;
 import static properties.GetProperties.getProperty;
 
