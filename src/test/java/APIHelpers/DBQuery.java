@@ -143,7 +143,4 @@ public class DBQuery {
         return e;
     }
 
-    public static void setId(int id) {
-        DBQuery.id = id;
-    }
 }
