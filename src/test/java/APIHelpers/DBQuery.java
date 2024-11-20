@@ -90,16 +90,6 @@ public class DBQuery {
         return e;
     };
 
-    public static Function<EmployeeEntity, EmployeeEntity> specialCharactersDB = (EmployeeEntity e) -> {
-        e.setFirstName(SPECIAL_CHARACTERS);
-        e.setLastName(SPECIAL_CHARACTERS);
-        e.setMiddleName(SPECIAL_CHARACTERS);
-        e.setCompanyId(NEW_COMPANY);
-        e.setPhone(EMPLOYEE_PHONE);
-        e.setActive(true);
-        return e;
-    };
-
     @Step("Удаление тестовых данных из БД")
     public static void deleteTestsCreatedData() {
         connectionDB();
@@ -143,4 +133,7 @@ public class DBQuery {
         return e;
     }
 
+    public static void setId(int id) {
+        DBQuery.id = id;
+    }
 }
