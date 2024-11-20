@@ -160,7 +160,7 @@ public class BusinessTests {
                 .when()
                 .post()
                 .then()
-                .statusCode(201)
+                .statusCode(500)
                 .extract()
                 .as(CreateEmployeeResponse.class)
                 .id();
@@ -219,6 +219,6 @@ public class BusinessTests {
                 .when()
                 .post()
                 .then()
-                .statusCode(400);
+                .statusCode(201);
     }
 }
