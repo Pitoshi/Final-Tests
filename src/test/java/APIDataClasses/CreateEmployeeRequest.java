@@ -25,6 +25,6 @@ public class CreateEmployeeRequest {
     public void setActive(boolean b) {
     }
 
-    public void setActive(boolean b) {
+    public void setActive() {
     }
 }

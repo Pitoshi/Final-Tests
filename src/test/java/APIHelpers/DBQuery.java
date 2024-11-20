@@ -39,7 +39,7 @@ public class DBQuery {
     public static int createNewCompanyDB() throws IOException {
         connectionDB();
 
-        CompanyEntity newCompany = new CompanyEntity(id);
+        CompanyEntity newCompany = new CompanyEntity(id, description);
         newCompany.setName(COMPANY_NAME);
         newCompany.setActive(true);
 

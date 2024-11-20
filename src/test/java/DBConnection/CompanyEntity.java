@@ -20,8 +20,9 @@ public class CompanyEntity {
     @Column(name = "is_active")
     private boolean isActive;
 
-    public CompanyEntity(int id) {
+    public CompanyEntity(int id, String description) {
         this.id = id;
+        this.description = description;
     }
 
     public int getId() {
