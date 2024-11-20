@@ -30,7 +30,7 @@ public class RestAssuredRequests {
     public static int createNewCompanyWithEmployees() throws IOException {
         AuthResponse info = auth();
 
-        int newCompanyId = createNewCompanyDB();
+        int newCompanyId = createNewCompanyDB(description);
 
         CreateEmployeeRequest russianEmployeeName = createEmployeeRequest(new CreateEmployeeRequest(), fullFieldsRussian);
         russianEmployeeName.setCompanyId(newCompanyId);

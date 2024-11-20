@@ -53,7 +53,7 @@ public class VariablesForEmployeeTests {
 
     static {
         try {
-            NEW_COMPANY = createNewCompanyDB();
+            NEW_COMPANY = createNewCompanyDB(description);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }

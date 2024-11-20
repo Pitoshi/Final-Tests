@@ -36,7 +36,7 @@ public class DBQuery {
     }
 
     @Step("Создаем в БД новую компанию")
-    public static int createNewCompanyDB() throws IOException {
+    public static int createNewCompanyDB(String description) throws IOException {
         connectionDB();
 
         CompanyEntity newCompany = new CompanyEntity(id, description);

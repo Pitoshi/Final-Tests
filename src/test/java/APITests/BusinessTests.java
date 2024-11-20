@@ -64,7 +64,7 @@ public class BusinessTests {
     @Tag("Позитивный")
     void getEmptyListOfEmployees() throws IOException {
         given()
-                .queryParam("company", createNewCompanyDB())
+                .queryParam("company", createNewCompanyDB(description))
                 .basePath("employee")
                 .contentType(ContentType.JSON)
                 .when()
