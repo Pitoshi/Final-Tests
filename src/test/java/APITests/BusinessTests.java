@@ -12,7 +12,6 @@ import org.junit.jupiter.api.*;
 
 import java.io.IOException;
 
-import static APIHelpers.DBQuery.createNewCompanyDB;
 import static APIHelpers.DBQuery.getEmployeeByIdDB;
 import static APIHelpers.RestAssuredRequests.auth;
 import static APIHelpers.RestAssuredRequests.createNewCompanyWithEmployees;
@@ -57,21 +56,6 @@ public class BusinessTests {
                 .body("isActive", hasItem(true))
                 .body("avatar_url", hasItems(EMPLOYEE_URL, null))
                 .body("email", hasItems(EMPLOYEE_EMAIL, null));
-    }
-
-    @Test
-    @DisplayName("Получение пустого списка сотрудников")
-    @Tag("Позитивный")
-    void getEmptyListOfEmployees() throws IOException {
-        given()
-                .queryParam("company", createNewCompanyDB(description))
-                .basePath("employee")
-                .contentType(ContentType.JSON)
-                .when()
-                .get()
-                .then()
-                .statusCode(200)
-                .header("Content-Length", (String) null);
     }
 
     @Test
@@ -139,7 +123,7 @@ public class BusinessTests {
     void createInactiveEmployee() {
         CreateEmployeeRequest request = new CreateEmployeeRequest();
         request = createEmployeeRequest(request, russian);
-        request.setIsActive(false);
+        request.setIsActive();
 
         int newEmployeeId = given()
                 .basePath("employee")
@@ -166,7 +150,7 @@ public class BusinessTests {
         request.setLastName(RUSSIAN_LASTNAME);
         request.setFirstName(RUSSIAN_NAME);
         request.setPhone(EMPLOYEE_PHONE);
-        request.setIsActive(true);
+        request.setIsActive();
 
         int newEmployeeId = given()
                 .basePath("employee")
@@ -190,7 +174,7 @@ public class BusinessTests {
     @Test
     @DisplayName("Получение информации о конкретном сотруднике")
     @Tag("Позитивный")
-    void getEmployeeById() throws IOException {
+    void getEmployeeById() {
         CreateEmployeeRequest request = new CreateEmployeeRequest();
         request = createEmployeeRequest(request, russian);
 

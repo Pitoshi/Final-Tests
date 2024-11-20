@@ -16,7 +16,7 @@ public class CompanyEntity {
     private String name;
     @lombok.Getter
     @Column
-    private String description;
+    private final String description;
     @Column(name = "is_active")
     private boolean isActive;
 

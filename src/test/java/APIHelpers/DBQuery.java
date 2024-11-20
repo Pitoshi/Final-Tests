@@ -68,45 +68,36 @@ public class DBQuery {
 
     public static Function<EmployeeEntity, EmployeeEntity> russianDB = DBQuery::apply;
 
-    public static Function<EmployeeEntity, EmployeeEntity> latinDB = new Function<EmployeeEntity, EmployeeEntity>() {
-        @Override
-        public EmployeeEntity apply(EmployeeEntity e) {
-            e.setFirstName(LATIN_NAME);
-            e.setLastName(LATIN_LASTNAME);
-            e.setCompanyId(NEW_COMPANY);
-            e.setPhone(EMPLOYEE_PHONE);
-            e.setActive(true);
-            return e;
-        }
+    public static Function<EmployeeEntity, EmployeeEntity> latinDB = e -> {
+        e.setFirstName(LATIN_NAME);
+        e.setLastName(LATIN_LASTNAME);
+        e.setCompanyId(NEW_COMPANY);
+        e.setPhone(EMPLOYEE_PHONE);
+        e.setActive(true);
+        return e;
     };
 
-    public static Function<EmployeeEntity, EmployeeEntity> fullFieldsRussianDB = new Function<EmployeeEntity, EmployeeEntity>() {
-        @Override
-        public EmployeeEntity apply(EmployeeEntity e) {
-            e.setFirstName(RUSSIAN_NAME);
-            e.setLastName(RUSSIAN_LASTNAME);
-            e.setMiddleName(RUSSIAN_MIDDLE_NAME);
-            e.setBirthdate(Date.valueOf(EMPLOYEE_BIRTHDAY));
-            e.setEmail(EMPLOYEE_EMAIL);
-            e.setCompanyId(NEW_COMPANY);
-            e.setPhone(EMPLOYEE_PHONE);
-            e.setActive(true);
-            e.setAvatar_url(EMPLOYEE_URL);
-            return e;
-        }
+    public static Function<EmployeeEntity, EmployeeEntity> fullFieldsRussianDB = (EmployeeEntity e) -> {
+        e.setFirstName(RUSSIAN_NAME);
+        e.setLastName(RUSSIAN_LASTNAME);
+        e.setMiddleName(RUSSIAN_MIDDLE_NAME);
+        e.setBirthdate(Date.valueOf(EMPLOYEE_BIRTHDAY));
+        e.setEmail(EMPLOYEE_EMAIL);
+        e.setCompanyId(NEW_COMPANY);
+        e.setPhone(EMPLOYEE_PHONE);
+        e.setActive(true);
+        e.setAvatar_url(EMPLOYEE_URL);
+        return e;
     };
 
-    public static Function<EmployeeEntity, EmployeeEntity> specialCharactersDB = new Function<EmployeeEntity, EmployeeEntity>() {
-        @Override
-        public EmployeeEntity apply(EmployeeEntity e) {
-            e.setFirstName(SPECIAL_CHARACTERS);
-            e.setLastName(SPECIAL_CHARACTERS);
-            e.setMiddleName(SPECIAL_CHARACTERS);
-            e.setCompanyId(NEW_COMPANY);
-            e.setPhone(EMPLOYEE_PHONE);
-            e.setActive(true);
-            return e;
-        }
+    public static Function<EmployeeEntity, EmployeeEntity> specialCharactersDB = (EmployeeEntity e) -> {
+        e.setFirstName(SPECIAL_CHARACTERS);
+        e.setLastName(SPECIAL_CHARACTERS);
+        e.setMiddleName(SPECIAL_CHARACTERS);
+        e.setCompanyId(NEW_COMPANY);
+        e.setPhone(EMPLOYEE_PHONE);
+        e.setActive(true);
+        return e;
     };
 
     @Step("Удаление тестовых данных из БД")
@@ -150,5 +141,9 @@ public class DBQuery {
         e.setPhone(EMPLOYEE_PHONE);
         e.setActive(true);
         return e;
+    }
+
+    public static void setId(int id) {
+        DBQuery.id = id;
     }
 }

@@ -53,7 +53,7 @@ public class VariablesForEmployeeTests {
 
     static {
         try {
-            NEW_COMPANY = createNewCompanyDB(description);
+            NEW_COMPANY = createNewCompanyDB(RUSSIAN_MIDDLE_NAME);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
@@ -77,7 +77,7 @@ public class VariablesForEmployeeTests {
                     e.setLastName(RUSSIAN_LASTNAME);
                     e.setCompanyId(NEW_COMPANY);
                     e.setPhone(EMPLOYEE_PHONE);
-                    e.setActive(true);
+                    e.setActive();
                     return e;
                 }
             };
@@ -90,7 +90,7 @@ public class VariablesForEmployeeTests {
                     e.setLastName(LATIN_LASTNAME);
                     e.setCompanyId(NEW_COMPANY);
                     e.setPhone(EMPLOYEE_PHONE);
-                    e.setActive(true);
+                    e.setActive();
                     return e;
                 }
             };
@@ -107,7 +107,7 @@ public class VariablesForEmployeeTests {
                     e.setEmail(EMPLOYEE_EMAIL);
                     e.setCompanyId(NEW_COMPANY);
                     e.setPhone(EMPLOYEE_PHONE);
-                    e.setActive(true);
+                    e.setActive();
                     e.setUrl(EMPLOYEE_URL);
                     return e;
                 }
@@ -119,7 +119,7 @@ public class VariablesForEmployeeTests {
                 e.setLastName(RUSSIAN_LASTNAME);
                 e.setCompanyId(NEGATIVE_ID);
                 e.setPhone(EMPLOYEE_PHONE);
-                e.setActive(true);
+                e.setActive();
                 return e;
             };
 
@@ -128,7 +128,7 @@ public class VariablesForEmployeeTests {
                 e.setLastName(CHANGED_LASTNAME);
                 e.setEmail(EMPLOYEE_CHANGED_EMAIL);
                 e.setPhone(EMPLOYEE_CHANGED_PHONE);
-                e.setActive(true);
+                e.setActive();
                 e.setUrl(EMPLOYEE_CHANGED_URL);
                 return e;
             };
@@ -146,7 +146,7 @@ public class VariablesForEmployeeTests {
                     e.setUrl(EMPLOYEE_CHANGED_URL);
                     e.setEmail(EMPLOYEE_CHANGED_EMAIL);
                     e.setBirthdate(EMPLOYEE_CHANGED_BIRTHDAY);
-                    e.setActive(true);
+                    e.setActive();
                     return e;
                 }
             };
@@ -160,7 +160,7 @@ public class VariablesForEmployeeTests {
                     e.setEmail(LATIN_NAME);
                     e.setCompanyId(NEW_COMPANY);
                     e.setPhone(EMPLOYEE_PHONE);
-                    e.setActive(true);
+                    e.setActive();
                     return e;
                 }
             };
